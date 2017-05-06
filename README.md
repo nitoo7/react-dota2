@@ -1,1 +1,1 @@
-# react-dota2
+### Sample React Redux application
