@@ -14,7 +14,7 @@ class LeftPanel extends Component {
     return (
       <Col xs={3}>
        
-        <div className="playerInfoBox">
+        <div className="playerInfoBox" onClick="">
         Player...1
         </div>
         <div className="playerInfoBox">

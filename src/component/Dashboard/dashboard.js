@@ -7,12 +7,14 @@ import Content from '../Content/content'
 class Dashboard extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
   }
   handleLogout = () => {
     this.props.onSubmit();
   }
   render() {
+    console.log('PROPS++>', this.props)
     return (
       <div className="App">
         <Header />

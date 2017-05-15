@@ -2,9 +2,10 @@
 
 import { combineReducers } from 'redux'
 import login from './login'
+import fetch from './fetch'
 
 const rootReducer = combineReducers({
-  login
+  login, fetch
 })
 
 export default rootReducer
