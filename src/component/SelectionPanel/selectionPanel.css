@@ -1,0 +1,15 @@
+.selectionPanel {
+    margin-top: 72px;
+    display: inline-block;
+}
+
+.playerInfoBox {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    color: white;
+}
+
+.playerImg {
+    width: 50px;
+}

@@ -1,34 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Row, Col, Table } from 'react-bootstrap';
-import './rightPanel.css'
+import './playerInfo.css'
 import { fetchData, fetchHeroInfo, fetchItemsInfo } from '../../action/fetchAction'
 import { connect } from 'react-redux'
-class RightPanel extends Component {
+class PlayerInfo extends Component {
   static propTypes = {
     matchesInfo: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
   }
-  handleLogout = () => {
-    this.props.onSubmit();
-  }
-
-  fetchDotaData = () => {
-    const {dispatch} = this.props
-    dispatch(fetchData("348480252"));
-    dispatch(fetchHeroInfo());
-    dispatch(fetchItemsInfo());
-  }
-
-  componentWillMount() {
-    this.fetchDotaData();
-  }
   
   
   render() {
+      console.log('PROPPPPPP', this.props)
       var playerInfoBuild = "";
+      var self = this;
       if(this.props.playerInfo) {
-        playerInfoBuild = this.props.playerInfo.map((match) => {
+        playerInfoBuild = this.props.playerInfo.map((match, index) => {
           var hero = this.props.heroInfo.filter(function(hero) {if(hero.id==match.hero_id) {return hero}})
           var heroNameExtesnion = hero[0].name.substring(14,hero[0].name.length);
           var heroImg = "http://cdn.dota2.com/apps/dota2/images/heroes/" + heroNameExtesnion +"_sb.png"
@@ -76,10 +64,11 @@ class RightPanel extends Component {
           }                            
 
           return (<tr>
+            <td onClick={()=>{this.props.showMatch(index)}}>{self.props.matchesInfo[index].match_id}</td>
             <td><img src={heroImg}></img></td>
             <td>{match.kills}</td>
-            <td>{match.assists}</td>
             <td>{match.deaths}</td>
+            <td>{match.assists}</td>
             <td>{match.gold_per_min}</td>
             <td>{match.xp_per_min}</td>
             <td>
@@ -94,10 +83,11 @@ class RightPanel extends Component {
         })
       }
     return (
-      <Col xs={9}>
+      <div className="match table-responsive">
         <Table bordered condensed>
             <thead>
               <tr>
+                <th>Match Id</th>
                 <th>Hero</th>
                 <th>Kills</th>
                 <th>Deaths</th>
@@ -111,7 +101,7 @@ class RightPanel extends Component {
               {playerInfoBuild}
             </tbody>
         </Table>
-      </Col>
+      </div>
     );
   }
 }
@@ -125,6 +115,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps
-)(RightPanel)
+)(PlayerInfo)
 
 

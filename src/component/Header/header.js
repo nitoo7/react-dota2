@@ -13,7 +13,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="header">
-        Dotabufffff
+        <span className="title">Dota Qb</span>
       </div>
     );
   }
