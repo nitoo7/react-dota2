@@ -2,123 +2,129 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Row, Col, Table } from 'react-bootstrap';
 import './rightPanel.css'
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import { fetchData, fetchHeroInfo, fetchItemsInfo } from '../../action/fetchAction'
+import { connect } from 'react-redux'
 class RightPanel extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired
+    matchesInfo: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
   }
   handleLogout = () => {
     this.props.onSubmit();
   }
+
+  fetchDotaData = () => {
+    const {dispatch} = this.props
+    dispatch(fetchData("348480252"));
+    dispatch(fetchHeroInfo());
+    dispatch(fetchItemsInfo());
+  }
+
+  componentWillMount() {
+    this.fetchDotaData();
+  }
   
   
   render() {
-    var matches = [{
-        "account_id": 367340556,
-        "player_slot": 0,
-        "hero_id": 41,
-        "item_0": 63,
-        "item_1": 46,
-        "item_2": 147,
-        "item_3": 81,
-        "item_4": 0,
-        "item_5": 158,
-        "backpack_0": 0,
-        "backpack_1": 0,
-        "backpack_2": 0,
-        "kills": 7,
-        "deaths": 5,
-        "assists": 11,
-        "leaver_status": 0,
-        "last_hits": 201,
-        "denies": 7,
-        "gold_per_min": 589,
-        "xp_per_min": 638,
-        "level": 23,
-        "hero_damage": 9420,
-        "tower_damage": 8594,
-        "hero_healing": 303,
-        "gold": 3442,
-        "gold_spent": 17930,
-        "scaled_hero_damage": 7940,
-        "scaled_tower_damage": 6200,
-        "scaled_hero_healing": 92,
-      }, {
-        "account_id": 4294967295,
-        "player_slot": 1,
-        "hero_id": 57,
-        "item_0": 102,
-        "item_1": 0,
-        "item_2": 46,
-        "item_3": 180,
-        "item_4": 121,
-        "item_5": 37,
-        "backpack_0": 0,
-        "backpack_1": 0,
-        "backpack_2": 0,
-        "kills": 4,
-        "deaths": 3,
-        "assists": 13,
-        "leaver_status": 0,
-        "last_hits": 61,
-        "denies": 4,
-        "gold_per_min": 380,
-        "xp_per_min": 586,
-        "level": 22,
-        "hero_damage": 6957,
-        "tower_damage": 660,
-        "hero_healing": 6410,
-        "gold": 2126,
-        "gold_spent": 12295,
-        "scaled_hero_damage": 5215,
-        "scaled_tower_damage": 494,
-        "scaled_hero_healing": 3913,
-      }];
+      var playerInfoBuild = "";
+      if(this.props.playerInfo) {
+        playerInfoBuild = this.props.playerInfo.map((match) => {
+          var hero = this.props.heroInfo.filter(function(hero) {if(hero.id==match.hero_id) {return hero}})
+          var heroNameExtesnion = hero[0].name.substring(14,hero[0].name.length);
+          var heroImg = "http://cdn.dota2.com/apps/dota2/images/heroes/" + heroNameExtesnion +"_sb.png"
+
+          if(match.item_0) {
+            var item_0 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_0) {return item}})
+            var item_0_extesnion = item_0[0].name.substring(5,item_0[0].name.length);
+                      console.log('^^^^^==>', item_0_extesnion)
+            var item_0_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_0_extesnion +"_lg.png"
+          }
+
+          if(match.item_1) {
+            var item_1 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_1) {return item}})
+            var item_1_extesnion = item_1[0].name.substring(5,item_1[0].name.length);
+                      console.log('^^^^^==>', item_1_extesnion)
+            var item_1_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_1_extesnion +"_lg.png"
+          }
+
+          if(match.item_2) {
+            var item_2 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_2) {return item}})
+            var item_2_extesnion = item_2[0].name.substring(5,item_2[0].name.length);
+                      console.log('^^^^^==>', item_2_extesnion)
+            var item_2_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_2_extesnion +"_lg.png"
+          }     
+
+          if(match.item_3) {
+            var item_3 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_3) {return item}})
+            var item_3_extesnion = item_3[0].name.substring(5,item_3[0].name.length);
+                      console.log('^^^^^==>', item_3_extesnion)
+            var item_3_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_3_extesnion +"_lg.png"
+          }
+
+          if(match.item_4) {
+            var item_4 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_4) {return item}})
+            var item_4_extesnion = item_4[0].name.substring(5,item_4[0].name.length);
+                      console.log('^^^^^==>', item_4_extesnion)
+            var item_4_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_4_extesnion +"_lg.png"
+          }
+
+          if(match.item_5) {
+            var item_5 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_5) {return item}})
+            var item_5_extesnion = item_5[0].name.substring(5,item_5[0].name.length);
+                      console.log('^^^^^==>', item_5_extesnion)
+            var item_5_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_5_extesnion +"_lg.png"
+          }                            
+
+          return (<tr>
+            <td><img src={heroImg}></img></td>
+            <td>{match.kills}</td>
+            <td>{match.assists}</td>
+            <td>{match.deaths}</td>
+            <td>{match.gold_per_min}</td>
+            <td>{match.xp_per_min}</td>
+            <td>
+              <img style={{width:'30px'}} src={item_0_img}></img>
+              <img style={{width:'30px'}} src={item_1_img}></img>
+              <img style={{width:'30px'}} src={item_2_img}></img>
+              <img style={{width:'30px'}} src={item_3_img}></img>
+              <img style={{width:'30px'}} src={item_4_img}></img>
+              <img style={{width:'30px'}} src={item_5_img}></img>
+            </td>
+          </tr>)
+        })
+      }
     return (
       <Col xs={9}>
-  <Table striped bordered condensed>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td colSpan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </Table>
+        <Table bordered condensed>
+            <thead>
+              <tr>
+                <th>Hero</th>
+                <th>Kills</th>
+                <th>Deaths</th>
+                <th>Assists</th>
+                <th>GPM</th>
+                <th>XPM</th>
+                <th>ITEMS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {playerInfoBuild}
+            </tbody>
+        </Table>
       </Col>
     );
   }
 }
 
-export default RightPanel;
+const mapStateToProps = (state) => ({
+  matchesInfo: state.fetch.matchesInfo,
+  playerInfo: state.fetch.playerInfo,
+  heroInfo: state.fetch.heroInfo,
+  itemsInfo: state.fetch.itemsInfo
+})
+
+export default connect(
+  mapStateToProps
+)(RightPanel)
 
 
-      // <BootstrapTable data={ matches }>
-      //     <TableHeaderColumn dataField='hero_id' isKey>Hero</TableHeaderColumn>
-      //     <TableHeaderColumn dataField='kills'>Kills</TableHeaderColumn>
-      //     <TableHeaderColumn dataField='deaths'>Deaths</TableHeaderColumn>
-      //     <TableHeaderColumn dataField='assists'>Assists</TableHeaderColumn>
-      //     <TableHeaderColumn dataField='level'>Level</TableHeaderColumn>       
-      //     <TableHeaderColumn dataField='gold_per_min'>GPM</TableHeaderColumn>                       
-      // </BootstrapTable>
