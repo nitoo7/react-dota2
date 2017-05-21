@@ -47,6 +47,32 @@ const enableLoaderState = () => {
   }
 }
 
+const showMatchPage = (matchData) => {
+  return {
+    type: 'SHOW_MATCH_PAGE',
+    response: {'matchData': matchData}
+  }
+}
+
+const closeMatchPage = () => {
+  return {
+    type: 'CLOSE_MATCH_PAGE',
+    response: {}
+  }
+}
+
+export function showMatchInfoPage(matchData) {
+  return (dispatch) => {
+    return dispatch(showMatchPage(matchData));
+  }
+}
+
+export function closeMatchInfoPage() {
+  return (dispatch) => {
+    return dispatch(closeMatchPage());
+  }
+}
+
 export function fetchHeroInfo() {
   return (dispatch) => {
      axios.get(hero_url).then(function(response) {

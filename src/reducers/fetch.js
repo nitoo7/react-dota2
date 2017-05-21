@@ -5,15 +5,17 @@ const fetch = (state = {
   playerInfo: [],
   heroInfo: {},
   itemsInfo: {},
-  loader: true
+  loader: true,
+  showMatchPage: false,
+  matchData: {}
   }, action) => {
-      console.log('reducer......', action.type)
     switch (action.type) {
       case 'FETCH_DOTA_DATA':
         return {...state,
           matchesInfo: action.response.test.matchesInfo,
           playerInfo: action.response.test.totalInfo,
-          loader: false
+          loader: false,
+          showMatchPage: false
         }
       case 'FETCH_HERO_INFO':
         return {...state,
@@ -26,6 +28,16 @@ const fetch = (state = {
       case 'ENABLE_LOADER':
         return {...state,
           loader: true  
+        }
+      case 'SHOW_MATCH_PAGE':
+        return {...state,
+          showMatchPage: true ,
+          matchData: action.response.matchData 
+        }
+      case 'CLOSE_MATCH_PAGE':
+        return {...state,
+          showMatchPage: false,
+          matchData: {}  
         }
       default:
         return state

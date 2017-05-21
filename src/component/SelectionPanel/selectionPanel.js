@@ -24,10 +24,14 @@ class LeftPanel extends Component {
       dispatch(fetchData("113726618"));
     } else if(player == 'nit') {
       dispatch(fetchData("348480252"));
-    }          
+    } else if(player == 'sana') {
+      dispatch(fetchData("373219349"))
+    } else if(player == 'altair') {
+      dispatch(fetchData("351831800"))
+    } else if(player == 'johng') {
+      dispatch(fetchData("86718410"))
+    }                   
   }
-
-
 
   render() {
     return (
@@ -52,6 +56,21 @@ class LeftPanel extends Component {
           </img>  
           <p>Bad..karma</p>
         </div>
+        <div className="playerInfoBox" onClick={()=>{this.fetchDotaData('sana')}}>
+          <img className="playerImg" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/97/978287855f109cdb5ae7168dd8625b37b0c0e314_full.jpg" alt="242x200">
+          </img>  
+          <p>Swamiji</p>
+        </div>      
+        <div className="playerInfoBox" onClick={()=>{this.fetchDotaData('altair')}}>
+          <img className="playerImg" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/6d/6dd8ae8d66b6a3021896da24b9f92aa51ccec92a_full.jpg" alt="242x200">
+          </img>  
+          <p>Altair</p>
+        </div>      
+        <div className="playerInfoBox" onClick={()=>{this.fetchDotaData('johng')}}>
+          <img className="playerImg" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/58/58c2360af9d6e98ddfb0bea692920f84078f24cf_full.jpg" alt="242x200">
+          </img>  
+          <p>acidblue</p>
+        </div>                 
       </div>
     );
   }

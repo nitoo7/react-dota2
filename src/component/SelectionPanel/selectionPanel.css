@@ -8,6 +8,7 @@
     width: 80px;
     text-align: center;
     color: white;
+    cursor: pointer;
 }
 
 .playerImg {

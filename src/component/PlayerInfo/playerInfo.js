@@ -2,17 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Row, Col, Table } from 'react-bootstrap';
 import './playerInfo.css'
-import { fetchData, fetchHeroInfo, fetchItemsInfo } from '../../action/fetchAction'
+import { fetchData, fetchHeroInfo, fetchItemsInfo, showMatchInfoPage } from '../../action/fetchAction'
 import { connect } from 'react-redux'
+import MatchInfo from '../MatchInfo/matchInfo'
+
 class PlayerInfo extends Component {
   static propTypes = {
     matchesInfo: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
   }
   
+  showMatchInfo = (index) => {
+    const {dispatch} = this.props
+    dispatch(showMatchInfoPage(this.props.matchesInfo[index]));
+  }
+
+  
   
   render() {
-      console.log('PROPPPPPP', this.props)
       var playerInfoBuild = "";
       var self = this;
       if(this.props.playerInfo) {
@@ -24,47 +31,41 @@ class PlayerInfo extends Component {
           if(match.item_0) {
             var item_0 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_0) {return item}})
             var item_0_extesnion = item_0[0].name.substring(5,item_0[0].name.length);
-                      console.log('^^^^^==>', item_0_extesnion)
             var item_0_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_0_extesnion +"_lg.png"
           }
 
           if(match.item_1) {
             var item_1 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_1) {return item}})
             var item_1_extesnion = item_1[0].name.substring(5,item_1[0].name.length);
-                      console.log('^^^^^==>', item_1_extesnion)
             var item_1_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_1_extesnion +"_lg.png"
           }
 
           if(match.item_2) {
             var item_2 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_2) {return item}})
             var item_2_extesnion = item_2[0].name.substring(5,item_2[0].name.length);
-                      console.log('^^^^^==>', item_2_extesnion)
             var item_2_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_2_extesnion +"_lg.png"
           }     
 
           if(match.item_3) {
             var item_3 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_3) {return item}})
             var item_3_extesnion = item_3[0].name.substring(5,item_3[0].name.length);
-                      console.log('^^^^^==>', item_3_extesnion)
             var item_3_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_3_extesnion +"_lg.png"
           }
 
           if(match.item_4) {
             var item_4 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_4) {return item}})
             var item_4_extesnion = item_4[0].name.substring(5,item_4[0].name.length);
-                      console.log('^^^^^==>', item_4_extesnion)
             var item_4_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_4_extesnion +"_lg.png"
           }
 
           if(match.item_5) {
             var item_5 = this.props.itemsInfo.filter(function(item) {if(item.id==match.item_5) {return item}})
             var item_5_extesnion = item_5[0].name.substring(5,item_5[0].name.length);
-                      console.log('^^^^^==>', item_5_extesnion)
             var item_5_img = "http://cdn.dota2.com/apps/dota2/images/items/" + item_5_extesnion +"_lg.png"
           }                            
 
           return (<tr>
-            <td onClick={()=>{this.props.showMatch(index)}}>{self.props.matchesInfo[index].match_id}</td>
+            <td className="clickable" onClick={()=>{this.showMatchInfo(index)}}>{self.props.matchesInfo[index].match_id}</td>
             <td><img src={heroImg}></img></td>
             <td>{match.kills}</td>
             <td>{match.deaths}</td>
@@ -82,9 +83,13 @@ class PlayerInfo extends Component {
           </tr>)
         })
       }
+      
     return (
       <div className="match table-responsive">
-        <Table bordered condensed>
+      
+      {
+        this.props.showMatchPage ? <MatchInfo /> :
+          <Table bordered condensed>
             <thead>
               <tr>
                 <th>Match Id</th>
@@ -101,6 +106,7 @@ class PlayerInfo extends Component {
               {playerInfoBuild}
             </tbody>
         </Table>
+      }
       </div>
     );
   }
@@ -110,7 +116,8 @@ const mapStateToProps = (state) => ({
   matchesInfo: state.fetch.matchesInfo,
   playerInfo: state.fetch.playerInfo,
   heroInfo: state.fetch.heroInfo,
-  itemsInfo: state.fetch.itemsInfo
+  itemsInfo: state.fetch.itemsInfo,
+  showMatchPage: state.fetch.showMatchPage
 })
 
 export default connect(

@@ -14,15 +14,11 @@ class DetailsPanel extends Component {
   
   fetchDotaData = () => {
     const {dispatch} = this.props
-    dispatch(fetchData("348480252"));
+    dispatch(fetchData("365726232"));
     dispatch(fetchHeroInfo());
     dispatch(fetchItemsInfo());
   }
   
-  showMatchInfo = (index) => {
-    console.log('SHOW MATCH+++>', index)
-  }
-
   componentWillMount() {
     this.fetchDotaData();
   }
@@ -31,7 +27,7 @@ class DetailsPanel extends Component {
     return (
       <div className="match table-responsive">
         {
-          this.props.loader ? <div className="loader"></div> : <PlayerInfo showMatch={this.showMatchInfo} />
+          this.props.loader ? <div className="loader"></div> : <PlayerInfo />
         }
       </div>
     );
